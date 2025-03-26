@@ -38,12 +38,14 @@ def chat(user_input):
 
     for chunk in chat_response:
         content = chunk.choices[0].delta.content
-        if content is not None:
+        if content:
+            print(content, end="", flush=True)  
             full_response.append(content)
 
     
     assistant_response = "".join(full_response)
     messages.append(AssistantMessage(content=assistant_response, role="assistant"))
+    print('\n')
     
     return assistant_response
 # %%
@@ -51,6 +53,5 @@ while True:
     user_input = input('input: ')
     if user_input.lower() == 'exit':
         break
-    bot_response = chat(user_input)
-    print(f"\nBot: {bot_response}\n")
+    chat(user_input)
 # %%
